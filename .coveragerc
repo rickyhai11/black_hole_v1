@@ -1,0 +1,8 @@
+[run]
+branch = True
+source = playnetmano_rm
+
+
+[report]
+ignore_errors = True
+
