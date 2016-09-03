@@ -1,18 +1,18 @@
 ===================
-Kingbird User Guide
+playnetmano_rm User Guide
 ===================
 
 Quota management for OpenStack multi-region deployments
 -------------------------------------------------------
-Kingbird is centralized synchronization service for multi-region OpenStack
-deployments. In OPNFV Colorado release, Kingbird provides centralized quota
-management feature. Administrator can set quota per project based in Kingbird
+playnetmano_rm is centralized synchronization service for multi-region OpenStack
+deployments. In OPNFV Colorado release, playnetmano_rm provides centralized quota
+management feature. Administrator can set quota per project based in playnetmano_rm
 and sync the quota limit to multi-region OpenStack periodiclly or on-demand.
-The tenant can check the total quota limit and usage from Kingbird for all
+The tenant can check the total quota limit and usage from playnetmano_rm for all
 regions. Administrator can aslo manage the default quota by quota class
 setting.
 
-Following quota items are supported to be managed in Kingbird:
+Following quota items are supported to be managed in playnetmano_rm:
 
 - **instances**: Number of instances allowed per project.
 - **cores**: Number of instance cores allowed per project.
@@ -47,13 +47,13 @@ Following quota items are supported to be managed in Kingbird:
 - **backup_gigabytes**: Total amount of storage, in gigabytes, allowed for volume
   backups per project.
 
-Only restful APIs are provided for Kingbird in Colorado release, so curl or
-other http client can be used to call Kingbird API.
+Only restful APIs are provided for playnetmano_rm in Colorado release, so curl or
+other http client can be used to call playnetmano_rm API.
 
-Before use the following command, get token, project id, and kingbird service
+Before use the following command, get token, project id, and playnetmano_rm service
 endpoint first. Use $kb_token to repesent the token, and $admin_tenant_id as
 administrator project_id, and $tenant_id as the target project_id for quota
-management and $kb_ip_addr for the kingbird service endpoint ip address.
+management and $playnetmano_ip_addr for the playnetmano_rm service endpoint ip address.
 
 Note:
 To view all tenants (projects), run:
@@ -68,7 +68,7 @@ To get token, run:
 
     openstack token issue
 
-To get Kingbird service endpoint, run:
+To get playnetmano_rm service endpoint, run:
 
 .. code-block:: bash
 
@@ -85,7 +85,7 @@ Quota Management API
    -H  "ROLE: dmin" \
    -X PUT \
    -d '{"quota_set":{"cores": 10,"ram": 51200, "metadata_items": 100,"key_pairs": 100, "network":20,"security_group": 20,"security_group_rule": 20}}' \
-   http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
+   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
 
 2. Get global limit for a tenant
 
@@ -93,14 +93,14 @@ Quota Management API
    -H "Content-Type: application/json" \
    -H "X-Auth-Token: $kb_token" \
    -H  "X_ROLE: admin" \
-   http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
+   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
 
 3. A tenant can also get the global limit by himself
 
    curl \
    -H "Content-Type: application/json" \
    -H "X-Auth-Token: $kb_token" \
-   http://$kb_ip_addr:8118/v1.0/$tenant_id/os-quota-sets/$tenant_id
+   http://$playnetmano_ip_addr:8118/v1.0/$tenant_id/os-quota-sets/$tenant_id
 
 4. Get defaults limits
 
@@ -108,7 +108,7 @@ Quota Management API
    -H "Content-Type: application/json" \
    -H "X-Auth-Token: $kb_token" \
    -H  "X_ROLE: admin" \
-   http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/defaults
+   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/defaults
 
 5. Get total usage for a tenant
 
@@ -117,7 +117,7 @@ Quota Management API
    -H "X-Auth-Token: $kb_token" \
    -H  "X_ROLE: admin" \
    -X GET \
-   http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id/detail
+   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id/detail
 
 6. A tenant can also get the total usage by himself
 
@@ -125,7 +125,7 @@ Quota Management API
    -H "Content-Type: application/json" \
    -H "X-Auth-Token: $kb_token" \
    -X GET \
-   http://$kb_ip_addr:8118/v1.0/$tenant_id/os-quota-sets/$tenant_id/detail
+   http://$playnetmano_ip_addr:8118/v1.0/$tenant_id/os-quota-sets/$tenant_id/detail
 
 7. On demand quota sync
 
@@ -134,7 +134,7 @@ Quota Management API
    -H "X-Auth-Token: $kb_token" \
    -H  "X_ROLE: admin" \
    -X PUT \
-   http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id/sync
+   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id/sync
 
 
 8. Delete specific global limit for a tenant
@@ -145,16 +145,16 @@ Quota Management API
    -H  "X_ROLE: admin" \
    -X DELETE \
    -d '{"quota_set": [ "cores", "ram"]}' \
-   http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
+   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
 
-9. Delete all kingbird global limit for a tenant
+9. Delete all playnetmano_rm global limit for a tenant
 
   curl \
   -H "Content-Type: application/json" \
   -H "X-Auth-Token: $kb_token" \
   -H  "X_ROLE: admin" \
   -X DELETE \
-  http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
+  http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
 
 
 Quota Class API
@@ -168,7 +168,7 @@ Quota Class API
    -H  "ROLE: dmin" \
    -X PUT \
    -d '{"quota_class_set":{"cores": 100, "network":50,"security_group": 50,"security_group_rule": 50}}' \
-   http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-class-sets/default
+   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-class-sets/default
 
 2. Get default quota class
 
@@ -176,7 +176,7 @@ Quota Class API
    -H "Content-Type: application/json" \
    -H "X-Auth-Token: $kb_token" \
    -H  "X_ROLE: admin" \
-   http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-class-sets/default
+   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-class-sets/default
 
 3. Delete default quota class
 
@@ -185,4 +185,4 @@ Quota Class API
    -H "X-Auth-Token: $kb_token" \
    -H  "ROLE: dmin" \
    -X DELETE \
-   http://$kb_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-class-sets/default
+   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-class-sets/default

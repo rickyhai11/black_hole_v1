@@ -58,7 +58,7 @@ def main():
              {'host': host, 'port': port, 'workers': workers})
     messaging.setup()
     systemd.notify_once()
-    service = wsgi.Server(CONF, "Kingbird", application, host, port)
+    service = wsgi.Server(CONF, "playnetmano_rm", application, host, port)
 
     app.serve(service, CONF, workers)
 

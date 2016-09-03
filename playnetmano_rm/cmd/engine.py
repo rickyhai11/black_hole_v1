@@ -43,7 +43,7 @@ def main():
     from playnetmano_rm.engine import service as engine
 
     srv = engine.EngineService(cfg.CONF.host,
-                               consts.TOPIC_KB_ENGINE)
+                               consts.TOPIC_PLRM_ENGINE)
     launcher = service.launch(cfg.CONF,
                               srv, workers=cfg.CONF.workers)
     # the following periodic tasks are intended serve as HA checking

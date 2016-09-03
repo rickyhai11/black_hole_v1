@@ -64,7 +64,7 @@ class EngineService(service.Service):
         super(EngineService, self).__init__()
         self.host = cfg.CONF.host
         self.rpc_api_version = consts.RPC_API_VERSION
-        self.topic = consts.TOPIC_KB_ENGINE
+        self.topic = consts.TOPIC_PLRM_ENGINE
         # The following are initialized here, but assigned in start() which
         # happens after the fork when spawning multiple worker processes
         self.engine_id = None

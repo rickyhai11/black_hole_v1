@@ -33,10 +33,10 @@ def get_session():
     return db_api.get_session()
 
 
-class KingbirdBase(models.ModelBase,
-                   models.SoftDeleteMixin,
-                   models.TimestampMixin):
-    """Base class for Kingbird Models."""
+class Playnetmano_rmBase(models.ModelBase,
+                         models.SoftDeleteMixin,
+                         models.TimestampMixin):
+    """Base class for Playnetmano_rm Models."""
     __table_args__ = {'mysql_engine': 'InnoDB'}
 
     def expire(self, session=None, attrs=None):
@@ -65,7 +65,7 @@ class KingbirdBase(models.ModelBase,
         session.commit()
 
 
-class Quota(BASE, KingbirdBase):
+class Quota(BASE, Playnetmano_rmBase):
     """Represents a single quota override for a project.
 
     If there is no row for a given project id and resource, then the
@@ -91,7 +91,7 @@ class Quota(BASE, KingbirdBase):
     hard_limit = Column(Integer, nullable=True)
 
 
-class QuotaClass(BASE, KingbirdBase):
+class QuotaClass(BASE, Playnetmano_rmBase):
     """Represents a single quota override for a quota class.
 
     If there is no row for a given quota class and resource, then the
@@ -110,7 +110,7 @@ class QuotaClass(BASE, KingbirdBase):
     hard_limit = Column(Integer, nullable=True)
 
 
-class SyncLock(BASE, KingbirdBase):
+class SyncLock(BASE, Playnetmano_rmBase):
     """Store locks to avoid overlapping of projects
 
     syncing during automatic periodic sync jobs with
@@ -128,8 +128,8 @@ class SyncLock(BASE, KingbirdBase):
     task_type = Column(String(36), nullable=False)
 
 
-class Service(BASE, KingbirdBase):
-    """"Kingbird service engine registry"""
+class Service(BASE, Playnetmano_rmBase):
+    """"Playnetmano_rm service engine registry"""
 
     __tablename__ = 'service'
 

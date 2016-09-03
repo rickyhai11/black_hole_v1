@@ -37,7 +37,7 @@ class EngineClient(object):
 
     def __init__(self):
         self._client = messaging.get_rpc_client(
-            topic=consts.TOPIC_KB_ENGINE,
+            topic=consts.TOPIC_PLRM_ENGINE,
             server=CONF.host,
             version=self.BASE_RPC_API_VERSION)
 

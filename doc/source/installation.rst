@@ -1,25 +1,25 @@
 ===========================
-Kingbird Installation Guide
+playnetmano_rm Installation Guide
 ===========================
 
 Preparing the installation
 --------------------------
-Kingbird is centralized synchronization service for multi-region OpenStack
-deployments. In OPNFV Colorado release, Kingbird provides centralized quota
+playnetmano_rm is centralized synchronization service for multi-region OpenStack
+deployments. In OPNFV Colorado release, playnetmano_rm provides centralized quota
 management feature. At least two OpenStack regions with shared KeyStone should
 be installed first.
 
-Kingbird includes kingbird-api and kingbird-engine, kingbird-api and
-kingbird-engine which talk to each other through message bus, and both
-services access the database. Kingbird-api receives the RESTful
-API request for quota management and forward the request to kingbird-engine
+playnetmano_rm includes playnetmano_rm-api and playnetmano_rm-engine, playnetmano_rm-api and
+playnetmano_rm-engine which talk to each other through message bus, and both
+services access the database. playnetmano_rm-api receives the RESTful
+API request for quota management and forward the request to playnetmano_rm-engine
 to do quota synchronization etc task.
 
-Therefore install Kingbird on the controller nodes of one of the OpenStack
+Therefore install playnetmano_rm on the controller nodes of one of the OpenStack
 region, these two services could be deployed in same node or different node.
-Both kingbird-api and kingbird-engine can run in multiple nodes with
+Both playnetmano_rm-api and playnetmano_rm-engine can run in multiple nodes with
 multi-workers mode. It's up to you how many nodes you want to deploy
-kingbird-api and kingbird-engine and they can work in same node or
+playnetmano_rm-api and playnetmano_rm-engine and they can work in same node or
 different nodes.
 
 HW requirements
@@ -29,7 +29,7 @@ No special hardware requirements
 Installation instruction
 ------------------------
 
-In colorado release, Kingbird is recommended to be installed in a python
+In colorado release, playnetmano_rm is recommended to be installed in a python
 virtual environment. So install and activate virtualenv first.
 
 .. code-block:: bash
@@ -38,12 +38,12 @@ virtual environment. So install and activate virtualenv first.
     virtualenv venv
     source venv/bin/activate
 
-Get the latest code of Kingbird from git repository:
+Get the latest code of playnetmano_rm from git repository:
 
 .. code-block:: bash
 
-    git clone https://github.com/openstack/kingbird.git
-    cd kingbird/
+    git clone https://github.com/openstack/playnetmano_rm.git
+    cd playnetmano_rm/
     pip install -e .
 
 
@@ -51,7 +51,7 @@ or get the stable release from PyPI repository:
 
 .. code-block:: bash
 
-    pip install kingbird
+    pip install playnetmano_rm
 
 In case of the database package are not installed, you may need to install:
 
@@ -60,47 +60,47 @@ In case of the database package are not installed, you may need to install:
     pip install mysql
     pip install pymysql
 
-In the Kingbird root folder, where you can find the source code of Kingbird,
-generate the configuration sample file for Kingbird:
+In the playnetmano_rm root folder, where you can find the source code of playnetmano_rm,
+generate the configuration sample file for playnetmano_rm:
 
 .. code-block:: bash
 
     oslo-config-generator --config-file=./tools/config-generator.conf
 
-prepare the folder used for cache, log and configuration for Kingbird:
+prepare the folder used for cache, log and configuration for playnetmano_rm:
 
 .. code-block:: bash
 
-    sudo rm -rf /var/cache/kingbird
-    sudo mkdir -p /var/cache/kingbird
-    sudo chown `whoami` /var/cache/kingbird
-    sudo rm -rf /var/log/kingbird
-    sudo mkdir -p /var/log/kingbird
-    sudo chown `whoami` /var/log/kingbird
-    sudo rm -rf /etc/kingbird
-    sudo mkdir -p /etc/kingbird
-    sudo chown `whoami` /etc/kingbird
+    sudo rm -rf /var/cache/playnetmano_rm
+    sudo mkdir -p /var/cache/playnetmano_rm
+    sudo chown `whoami` /var/cache/playnetmano_rm
+    sudo rm -rf /var/log/playnetmano_rm
+    sudo mkdir -p /var/log/playnetmano_rm
+    sudo chown `whoami` /var/log/playnetmano_rm
+    sudo rm -rf /etc/playnetmano_rm
+    sudo mkdir -p /etc/playnetmano_rm
+    sudo chown `whoami` /etc/playnetmano_rm
 
-Copy the sample configuration to the configuration folder /etc/kingbird:
+Copy the sample configuration to the configuration folder /etc/playnetmano_rm:
 
 .. code-block:: bash
 
-    cp etc/kingbird/kingbird.conf.sample /etc/kingbird/kingbird.conf
+    cp etc/playnetmano_rm/playnetmano_rm.conf.sample /etc/playnetmano_rm/playnetmano_rm.conf
 
-Before editing the configuration file, prepare the database info for Kingbird.
+Before editing the configuration file, prepare the database info for playnetmano_rm.
 
 .. code-block:: bash
 
     mysql -uroot -e "CREATE DATABASE $kb_db CHARACTER SET utf8;"
     mysql -uroot -e "GRANT ALL PRIVILEGES ON $kb_db.* TO '$kb_db_user'@'%' IDENTIFIED BY '$kb_db_pwd';"
 
-For example, the following command will create database "kingbird", and grant the
-privilege for the db user "kingbird" with password "password":
+For example, the following command will create database "playnetmano_rm", and grant the
+privilege for the db user "playnetmano_rm" with password "password":
 
 .. code-block:: bash
 
-    mysql -uroot -e "CREATE DATABASE kingbird CHARACTER SET utf8;"
-    mysql -uroot -e "GRANT ALL PRIVILEGES ON kingbird.* TO 'kingbird'@'%' IDENTIFIED BY 'password';"
+    mysql -uroot -e "CREATE DATABASE playnetmano_rm CHARACTER SET utf8;"
+    mysql -uroot -e "GRANT ALL PRIVILEGES ON playnetmano_rm.* TO 'playnetmano_rm'@'%' IDENTIFIED BY 'password';"
 
 Create the service user in OpenStack:
 
@@ -110,30 +110,30 @@ Create the service user in OpenStack:
     openstack user create --project=service --password=$kb_svc_pwd $kb_svc_user
     openstack role add --user=$kb_svc_user --project=service admin
 
-For example, the following command will create service user "kingbird",
-and grant the user "kingbird" with password "password" the role of admin
+For example, the following command will create service user "playnetmano_rm",
+and grant the user "playnetmano_rm" with password "password" the role of admin
 in service project:
 
 .. code-block:: bash
 
     source openrc admin admin
-    openstack user create --project=service --password=password kingbird
-    openstack role add --user=kingbird --project=service admin
+    openstack user create --project=service --password=password playnetmano_rm
+    openstack role add --user=playnetmano_rm --project=service admin
 
 
 
-Then edit the configuration file for Kingbird:
+Then edit the configuration file for playnetmano_rm:
 
 .. code-block:: bash
 
-    vim /etc/kingbird/kingbird.conf
+    vim /etc/playnetmano_rm/playnetmano_rm.conf
 
-By default, the bind_host of kingbird-api is local_host(127.0.0.1), and the
+By default, the bind_host of playnetmano_rm-api is local_host(127.0.0.1), and the
 port for the service is 8118, you can leave it as the default if no port
 conflict happened.
 
-To make the Kingbird work normally, you have to edit these configuration
-items. The [cache] section is used by kingbird engine to access the quota
+To make the playnetmano_rm work normally, you have to edit these configuration
+items. The [cache] section is used by playnetmano_rm engine to access the quota
 information of Nova, Cinder, Neutron in each region, replace the
 auth_uri to the keystone service in your environment,
 especially if the keystone service is not located in the same node, and
@@ -150,8 +150,8 @@ each region:
     admin_password = password
     admin_username = admin
 
-Configure the database section with the service user "kingbird" and its
-password, to access database "kingbird". For detailed database section
+Configure the database section with the service user "playnetmano_rm" and its
+password, to access database "playnetmano_rm". For detailed database section
 configuration, please refer to http://docs.openstack.org/developer/oslo.db/opts.html,
 and change the following configuration accordingly based on your
 environment.
@@ -161,16 +161,16 @@ environment.
     [database]
     connection = mysql+pymysql://$kb_db_user:$kb_db_pwd@127.0.0.1/$kb_db?charset=utf8
 
-For example, if the database is "kingbird", and the db user "kingbird" with
+For example, if the database is "playnetmano_rm", and the db user "playnetmano_rm" with
 password "password", then the configuration is as following:
 
 .. code-block:: bash
 
     [database]
-    connection = mysql+pymysql://kingbird:password@127.0.0.1/kingbird?charset=utf8
+    connection = mysql+pymysql://playnetmano_rm:password@127.0.0.1/playnetmano_rm?charset=utf8
 
 The [keystone_authtoken] section is used by keystonemiddleware for token
-validation during the API request to the kingbird-api, please refer to
+validation during the API request to the playnetmano_rm-api, please refer to
 http://docs.openstack.org/developer/keystonemiddleware/middlewarearchitecture.html
 on how to configure the keystone_authtoken section for the keystonemiddleware
 in detail, and change the following configuration accordingly based on your
@@ -182,7 +182,7 @@ KeyStone is deployed in multiple regions*
 .. code-block:: bash
 
     [keystone_authtoken]
-    signing_dir = /var/cache/kingbird
+    signing_dir = /var/cache/playnetmano_rm
     cafile = /opt/stack/data/ca-bundle.pem
     auth_uri = http://127.0.0.1:5000/v3
     project_domain_name = Default
@@ -194,20 +194,20 @@ KeyStone is deployed in multiple regions*
     auth_type = password
     region_name = RegionOne
 
-For example, if the service user is "kingbird, and the password for the user
+For example, if the service user is "playnetmano_rm, and the password for the user
 is "password", then the configuration will look like this:
 
 .. code-block:: bash
 
     [keystone_authtoken]
-    signing_dir = /var/cache/kingbird
+    signing_dir = /var/cache/playnetmano_rm
     cafile = /opt/stack/data/ca-bundle.pem
     auth_uri = http://127.0.0.1:5000/v3
     project_domain_name = Default
     project_name = service
     user_domain_name = Default
     password = password
-    username = kingbird
+    username = playnetmano_rm
     auth_url = http://127.0.0.1:35357/v3
     auth_type = password
     region_name = RegionOne
@@ -231,31 +231,31 @@ bus configuration in Nova, Cinder, Neutron configuration file.
     rabbit_virtual_host = /
 
 After these basic configuration items configured, now the database schema of
-"kingbird" should be created:
+"playnetmano_rm" should be created:
 
 .. code-block:: bash
 
-    python kingbird/cmd/manage.py --config-file=/etc/kingbird/kingbird.conf db_sync
+    python playnetmano_rm/cmd/manage.py --config-file=/etc/playnetmano_rm/playnetmano_rm.conf db_sync
 
-And create the service and endpoint for Kingbird, please change the endpoint url
+And create the service and endpoint for playnetmano_rm, please change the endpoint url
 according to your cloud planning:
 
 .. code-block:: bash
 
-    openstack service create --name=kingbird synchronization
+    openstack service create --name=playnetmano_rm synchronization
     openstack endpoint create --region=RegionOne \
     --publicurl=http://127.0.0.1:8118/v1.0 \
     --adminurl=http://127.0.0.1:8118/v1.0 \
-    --internalurl=http://127.0.0.1:8118/v1.0 kingbird
+    --internalurl=http://127.0.0.1:8118/v1.0 playnetmano_rm
 
-Now it's ready to run kingbird-api and kingbird-engine:
+Now it's ready to run playnetmano_rm-api and playnetmano_rm-engine:
 
 .. code-block:: bash
 
-    nohup python kingbird/cmd/api.py --config-file=/etc/kingbird/kingbird.conf &
-    nohup python kingbird/cmd/engine.py --config-file=/etc/kingbird/kingbird.conf &
+    nohup python playnetmano_rm/cmd/api.py --config-file=/etc/playnetmano_rm/playnetmano_rm.conf &
+    nohup python playnetmano_rm/cmd/engine.py --config-file=/etc/playnetmano_rm/playnetmano_rm.conf &
 
-Run the following command to check whether kingbird-api and kingbird-engine
+Run the following command to check whether playnetmano_rm-api and playnetmano_rm-engine
 are running:
 
 .. code-block:: bash
@@ -266,7 +266,7 @@ are running:
 Post-installation activities
 ----------------------------
 
-Run the following commands to check whether kingbird-api is serving, please
+Run the following commands to check whether playnetmano_rm-api is serving, please
 replace $token to the token you get from "openstack token issue":
 
 .. code-block:: bash
@@ -278,9 +278,9 @@ replace $token to the token you get from "openstack token issue":
 If the response looks like following: {"versions": [{"status": "CURRENT",
 "updated": "2016-03-07", "id": "v1.0", "links": [{"href":
 "http://127.0.0.1:8118/v1.0/", "rel": "self"}]}]},
-then that means the kingbird-api is working normally.
+then that means the playnetmano_rm-api is working normally.
 
-Run the following commands to check whether kingbird-engine is serving, please
+Run the following commands to check whether playnetmano_rm-engine is serving, please
 replace $token to the token you get from "openstack token issue", and the
 $admin_project_id to the admin project id in your environment:
 
@@ -291,5 +291,5 @@ $admin_project_id to the admin project id in your environment:
     http://127.0.0.1:8118/v1.0/$admin_project_id/os-quota-sets/$admin_project_id/sync
 
 If the response looks like following: "triggered quota sync for
-0320065092b14f388af54c5bd18ab5da", then that means the kingbird-engine
+0320065092b14f388af54c5bd18ab5da", then that means the playnetmano_rm-engine
 is working normally.

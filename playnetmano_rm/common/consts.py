@@ -38,4 +38,4 @@ NEUTRON_QUOTA_FIELDS = ("network",
 
 RPC_API_VERSION = "1.0"
 
-TOPIC_KB_ENGINE = "playnetmano_rm-engine"
+TOPIC_PLRM_ENGINE = "playnetmano_rm-engine"

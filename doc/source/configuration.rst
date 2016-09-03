@@ -1,9 +1,9 @@
 ============================
-Kingbird Configuration Guide
+playnetmano_rm Configuration Guide
 ============================
 
-A brief introduction to configure Multisite Kingbird service. Only the
-configuration items for Kingbird will be described here. Logging,
+A brief introduction to configure Multisite playnetmano_rm service. Only the
+configuration items for playnetmano_rm will be described here. Logging,
 messaging, database, keystonemiddleware etc configuration which are
 generated from OpenStack OSLO libary, will not be described here, for
 these configuration items are common to Nova, Cinder, Neutron. So please
@@ -13,36 +13,36 @@ refer to corresponding description from Nova or Cinder or Neutron.
 Configuration in [DEFAULT]
 --------------------------
 
-configuration items for kingbird-api
+configuration items for playnetmano_rm-api
 """"""""""""""""""""""""""""""""""""
 
 bind_host
 *********
 - default value: *bind_host = 0.0.0.0*
-- description: The host IP to bind for kingbird-api service
+- description: The host IP to bind for playnetmano_rm-api service
 
 bind_port
 *********
 - default value: *bind_port = 8118*
-- description: The port to bind for kingbird-api service
+- description: The port to bind for playnetmano_rm-api service
 
 api_workers
 ***********
 - default value: *api_workers = 2*
-- description: Number of kingbird-api workers
+- description: Number of playnetmano_rm-api workers
 
-configuration items for kingbird-engine
+configuration items for playnetmano_rm-engine
 """""""""""""""""""""""""""""""""""""""
 
 host
 ****
 - default value: *host = localhost*
-- description: The host name kingbird-engine service is running on
+- description: The host name playnetmano_rm-engine service is running on
 
 workers
 *******
 - default value: *workers = 1*
-- description: Number of kingbird-engine workers
+- description: Number of playnetmano_rm-engine workers
 
 report_interval
 ***************
@@ -52,7 +52,7 @@ report_interval
   aliveness to the DB more than two intervals, then the lock accquired
   by the engine will be removed by other engines.
 
-common configuration items for kingbird-api and kingbird-engine
+common configuration items for playnetmano_rm-api and playnetmano_rm-engine
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 use_default_quota_class
@@ -61,12 +61,12 @@ use_default_quota_class
 - description: Enables or disables use of default quota class with default
   quota, boolean value
 
-Configuration in [kingbird_global_limit]
+Configuration in [playnetmano_rm_global_limit]
 ----------------------------------------
 
 For quota limit, a negative value means unlimited.
 
-configuration items for kingbird-api and kingbird-engine
+configuration items for playnetmano_rm-api and playnetmano_rm-engine
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 quota_instances
@@ -176,11 +176,11 @@ quota_backup_gigabytes
 Configuration in [cache]
 ----------------------------------------
 
-The [cache] section is used by kingbird engine to access the quota
+The [cache] section is used by playnetmano_rm engine to access the quota
 information for Nova, Cinder, Neutron in each region in order to reduce
 the KeyStone load while retrieving the endpoint information each time.
 
-configuration items for kingbird-engine
+configuration items for playnetmano_rm-engine
 """""""""""""""""""""""""""""""""""""""
 
 auth_uri
@@ -216,10 +216,10 @@ admin_project_domain_name
 Configuration in [scheduler]
 ----------------------------------------
 
-The [scheduler] section is used by kingbird engine to periodically synchronize
+The [scheduler] section is used by playnetmano_rm engine to periodically synchronize
 and rebalance the quota for each project.
 
-configuration items for kingbird-engine
+configuration items for playnetmano_rm-engine
 """""""""""""""""""""""""""""""""""""""
 
 periodic_enable
@@ -236,7 +236,7 @@ periodic_interval
 Configuration in [batch]
 ----------------------------------------
 
-The [batch] section is used by kingbird engine to periodicly synchronize
+The [batch] section is used by playnetmano_rm engine to periodicly synchronize
 and rebalance the quota for each project.
 
 batch_size
@@ -247,7 +247,7 @@ batch_size
 Configuration in [locks]
 ----------------------------------------
 
-The [locks] section is used by kingbird engine to periodically synchronize
+The [locks] section is used by playnetmano_rm engine to periodically synchronize
 and rebalance the quota for each project.
 
 lock_retry_times

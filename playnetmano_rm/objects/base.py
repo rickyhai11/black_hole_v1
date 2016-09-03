@@ -13,7 +13,7 @@
 # License for the specific language governing permissions and limitations
 # under the License.
 
-"""Kingbird common internal object model"""
+"""playnetmano_rm common internal object model"""
 
 from oslo_utils import versionutils
 from oslo_versionedobjects import base
@@ -23,7 +23,7 @@ from playnetmano_rm import objects
 VersionedObjectDictCompat = base.VersionedObjectDictCompat
 
 
-class KingbirdObject(base.VersionedObject):
+class playnetmano_rmObject(base.VersionedObject):
     """Base class for playnetmano_rm objects.
 
     This is the base class for all objects that can be remoted or instantiated
@@ -51,7 +51,7 @@ class KingbirdObject(base.VersionedObject):
         return obj
 
 
-class KingbirdObjectRegistry(base.VersionedObjectRegistry):
+class playnetmano_rmObjectRegistry(base.VersionedObjectRegistry):
     def registration_hook(self, cls, index):
         """Callback for object registration.
 

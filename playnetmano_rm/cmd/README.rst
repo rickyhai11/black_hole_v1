@@ -2,17 +2,17 @@
 cmd
 ===============================
 
-Scripts to start the Kingbird API and Engine services
+Scripts to start the playnetmano_rm API and Engine services
 
 api.py:
     start API service
-    python api.py --config-file=/etc/kingbird.conf
+    python api.py --config-file=/etc/playnetmano_rm.conf
 
 engine.py:
     start Engine service
-    python engine.py --config-file=/etc/kingbird.conf
+    python engine.py --config-file=/etc/playnetmano_rm.conf
 
 manage.py:
-    CLI interface for kingbird management
-    kingbird-manage --config-file /etc/kingbird.conf db_sync
-    kingbird-manage --config-file /etc/kingbird.conf db_version
+    CLI interface for playnetmano_rm management
+    playnetmano_rm-manage --config-file /etc/playnetmano_rm.conf db_sync
+    playnetmano_rm-manage --config-file /etc/playnetmano_rm.conf db_version

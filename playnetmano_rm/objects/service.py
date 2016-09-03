@@ -20,9 +20,9 @@ from playnetmano_rm.objects import base
 from oslo_versionedobjects import fields
 
 
-@base.KingbirdObjectRegistry.register
-class Service(base.KingbirdObject, base.VersionedObjectDictCompat):
-    """Kingbird service object."""
+@base.playnetmano_rmObjectRegistry.register
+class Service(base.playnetmano_rmObject, base.VersionedObjectDictCompat):
+    """Playnetmano_rm service object."""
 
     fields = {
         'id': fields.UUIDField(),

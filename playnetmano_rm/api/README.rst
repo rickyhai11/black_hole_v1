@@ -2,20 +2,20 @@
 api
 ===============================
 
-Kingbird API is Web Server Gateway Interface (WSGI) applications to receive
+playnetmano_rm API is Web Server Gateway Interface (WSGI) applications to receive
 and process API calls, including keystonemiddleware to do the authentication,
 parameter check and validation, convert API calls to job rpc message, and
-then send the job to Kingbird Engine through the queue. If the job will
-be processed by Kingbird Engine in synchronous way, the Kingbird API will
-wait for the response from the Kingbird Engine. Otherwise, the Kingbird
+then send the job to playnetmano_rm Engine through the queue. If the job will
+be processed by playnetmano_rm Engine in synchronous way, the playnetmano_rm API will
+wait for the response from the playnetmano_rm Engine. Otherwise, the playnetmano_rm
 API will send response to the API caller first, and then send the job to
-Kingbird Engine in asynchronous way.
+playnetmano_rm Engine in asynchronous way.
 
-Multiple Kingbird API could run in parallel, and also can work in multi-worker
+Multiple playnetmano_rm API could run in parallel, and also can work in multi-worker
 mode.
 
-Multiple Kingbird API will be designed and run in stateless mode, persistent
-data will be accessed (read and write) from the Kingbird Database through the
+Multiple playnetmano_rm API will be designed and run in stateless mode, c
+data will be accessed (read and write) from the playnetmano_rm Database through the
 DAL module.
 
 Setup and encapsulate the API WSGI app
