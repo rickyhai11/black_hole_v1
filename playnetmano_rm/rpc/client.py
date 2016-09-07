@@ -11,7 +11,7 @@
 # under the License.
 
 '''
-Client side of the Kingbird RPC API.
+Client side of the Playnetmano_rm RPC API.
 '''
 
 from oslo_config import cfg

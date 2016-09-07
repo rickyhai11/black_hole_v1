@@ -43,7 +43,7 @@ def request_context(func):
             ctx = context.RequestContext.from_dict(ctx.to_dict())
         try:
             return func(self, ctx, *args, **kwargs)
-        except exceptions.KingbirdException:
+        except exceptions.Playnetmano_rmException:
             raise oslo_messaging.rpc.dispatcher.ExpectedException()
 
     return wrapped

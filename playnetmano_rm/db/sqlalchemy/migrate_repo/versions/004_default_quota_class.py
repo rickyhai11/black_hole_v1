@@ -1,16 +1,3 @@
-# Copyright (c) 2015 Ericsson AB.
-# Licensed under the Apache License, Version 2.0 (the "License"); you may
-# not use this file except in compliance with the License. You may obtain
-# a copy of the License at
-#
-#         http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-# License for the specific language governing permissions and limitations
-# under the License.
-
 import datetime
 from oslo_config import cfg
 import six
@@ -20,7 +7,7 @@ CLASS_NAME = 'default'
 CREATED_AT = datetime.datetime.now()
 
 CONF = cfg.CONF
-CONF.import_group('kingbird_global_limit', 'playnetmano_rm.common.config')
+CONF.import_group('playnetmano_rm_global_limit', 'playnetmano_rm.common.config')
 
 
 def upgrade(migrate_engine):
@@ -40,9 +27,9 @@ def upgrade(migrate_engine):
 
     # Set default quota limits
     qci = quota_classes.insert()
-    for resource, default in six.iteritems(CONF.kingbird_global_limit):
+    for resource, default in six.iteritems(CONF.playnetmano_rm_global_limit):
         qci.execute({'created_at': CREATED_AT,
                      'class_name': CLASS_NAME,
-                     'resource': resource[6:],
+                     'resource': resource[6:], # remove 'quota_' characters in "quota_security_groups" that is read from playnetmano_rm_global_limit config file
                      'hard_limit': default,
                      'deleted': False})
