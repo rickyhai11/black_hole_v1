@@ -102,5 +102,5 @@ If you want to launch a single Kingbird testcase in Tempest, you can do this wit
 
 .. sourcecode:: console
 
-    $ tox -e all-plugin scenario.quota_management.client_tests.test_quota_management_api.KingbirdQMTestJSON.test_kingbird_delete_method
+    $ tox -e all-plugin scenario.quota_management.client_tests.test_quota_management_api.Playnetmano_rmQMTestJSON.test_playnetmano_rm_delete_method
 ..

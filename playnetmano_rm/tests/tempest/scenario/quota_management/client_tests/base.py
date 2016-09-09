@@ -1,18 +1,3 @@
-# Copyright 2016 Ericsson AB
-# All Rights Reserved.
-#
-#    Licensed under the Apache License, Version 2.0 (the "License"); you may
-#    not use this file except in compliance with the License. You may obtain
-#    a copy of the License at
-#
-#         http://www.apache.org/licenses/LICENSE-2.0
-#
-#    Unless required by applicable law or agreed to in writing, software
-#    distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-#    WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-#    License for the specific language governing permissions and limitations
-#    under the License.
-
 import collections
 import time
 
@@ -34,20 +19,20 @@ DEFAULT_QUOTAS = consts.DEFAULT_QUOTAS
 TIME_TO_SYNC = CONF.kingbird.TIME_TO_SYNC
 
 
-class BaseKingbirdTest(api_version_utils.BaseMicroversionTest,
-                       tempest.test.BaseTestCase):
-    """Base test case class for all Kingbird API tests."""
+class BasePlaynetmano_rmTest(api_version_utils.BaseMicroversionTest,
+                             tempest.test.BaseTestCase):
+    """Base test case class for all playnetmano_rm API tests."""
 
     @classmethod
     def skip_checks(cls):
-        super(BaseKingbirdTest, cls).skip_checks()
+        super(BasePlaynetmano_rmTest, cls).skip_checks()
 
     def setUp(self):
-        super(BaseKingbirdTest, self).setUp()
+        super(BasePlaynetmano_rmTest, self).setUp()
 
     @classmethod
     def setup_credentials(cls):
-        super(BaseKingbirdTest, cls).setup_credentials()
+        super(BasePlaynetmano_rmTest, cls).setup_credentials()
         session = sync_client.get_session()
         cls.auth_token = session.get_token()
         cls.key_client = sync_client.get_key_client(session)
@@ -55,11 +40,11 @@ class BaseKingbirdTest(api_version_utils.BaseMicroversionTest,
 
     @classmethod
     def setup_clients(cls):
-        super(BaseKingbirdTest, cls).setup_clients()
+        super(BasePlaynetmano_rmTest, cls).setup_clients()
 
     @classmethod
     def resource_setup(cls):
-        super(BaseKingbirdTest, cls).resource_setup()
+        super(BasePlaynetmano_rmTest, cls).resource_setup()
         cls.class_name = data_utils.rand_name('kb-class')
 
     @classmethod
@@ -83,33 +68,33 @@ class BaseKingbirdTest(api_version_utils.BaseMicroversionTest,
 
     @classmethod
     def resource_cleanup(cls):
-        super(BaseKingbirdTest, cls).resource_cleanup()
+        super(BasePlaynetmano_rmTest, cls).resource_cleanup()
 
     @classmethod
     def delete_resources(cls):
         sync_client.resource_cleanup(cls.openstack_drivers, cls.resource_ids)
 
     @classmethod
-    def create_custom_kingbird_quota(cls, project_id, new_quota_values):
-        new_values = sync_client.create_custom_kingbird_quota(
+    def create_custom_playnetmano_rm_quota(cls, project_id, new_quota_values):
+        new_values = sync_client.create_custom_playnetmano_rm_quota(
             cls.auth_token, project_id, new_quota_values)
         return new_values
 
     @classmethod
-    def get_custom_kingbird_quota(cls, project_id):
-        return_quotas = sync_client.get_custom_kingbird_quota(
+    def get_custom_playnetmano_rm_quota(cls, project_id):
+        return_quotas = sync_client.get_custom_playnetmano_rm_quota(
             cls.auth_token, project_id)
         return return_quotas
 
     @classmethod
-    def delete_custom_kingbird_quota(cls, project_id, quota_to_delete=None):
-        deleted_quotas = sync_client.delete_custom_kingbird_quota(
+    def delete_custom_playnetmano_rm_quota(cls, project_id, quota_to_delete=None):
+        deleted_quotas = sync_client.delete_custom_playnetmano_rm_quota(
             cls.auth_token, project_id, quota_to_delete)
         return deleted_quotas
 
     @classmethod
-    def get_default_kingbird_quota(cls):
-        return_quotas = sync_client.get_default_kingbird_quota(cls.auth_token)
+    def get_default_playnetmano_rm_quota(cls):
+        return_quotas = sync_client.get_default_playnetmano_rm_quota(cls.auth_token)
         return return_quotas
 
     @classmethod
@@ -125,9 +110,9 @@ class BaseKingbirdTest(api_version_utils.BaseMicroversionTest,
         return quota_usage
 
     @classmethod
-    def create_custom_kingbird_quota_wrong_token(cls, project_id,
-                                                 new_quota_values):
-        new_values = sync_client.create_custom_kingbird_quota_wrong_token(
+    def create_custom_playnetmano_rm_quota_wrong_token(cls, project_id,
+                                                       new_quota_values):
+        new_values = sync_client.create_custom_playnetmano_rm_quota_wrong_token(
             cls.auth_token, project_id, new_quota_values)
         return new_values
 

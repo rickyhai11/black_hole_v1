@@ -1,17 +1,3 @@
-# Copyright (c) 2016 Ericsson AB.
-# All Rights Reserved.
-#
-#    Licensed under the Apache License, Version 2.0 (the "License");
-#    you may not use this file except in compliance with the License.
-#    You may obtain a copy of the License at
-#
-#        http://www.apache.org/licenses/LICENSE-2.0
-#
-#    Unless required by applicable law or agreed to in writing, software
-#    distributed under the License is distributed on an "AS IS" BASIS,
-#    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-#    See the License for the specific language governing permissions and
-#    limitations under the License.
 
 import collections
 import json
@@ -116,13 +102,13 @@ def get_urlstring_and_headers(token, api_url):
         'X-Auth-Token': token,
         'X-ROLE': 'admin',
     }
-    url_string = CONF.kingbird.endpoint_url + CONF.kingbird.api_version + \
+    url_string = CONF.playnetmano_rm.endpoint_url + CONF.playnetmano_rm.api_version + \
         "/" + admin_tenant_id + api_url
 
     return headers, url_string
 
 
-def create_custom_kingbird_quota(token, project_id, new_quota_values):
+def create_custom_playnetmano_rm_quota(token, project_id, new_quota_values):
     body = json.dumps(new_quota_values)
     headers, url_string = get_urlstring_and_headers(token, quota_api_url)
     url_string = url_string + project_id
@@ -130,14 +116,14 @@ def create_custom_kingbird_quota(token, project_id, new_quota_values):
     return response.text
 
 
-def get_custom_kingbird_quota(token, project_id):
+def get_custom_playnetmano_rm_quota(token, project_id):
     headers, url_string = get_urlstring_and_headers(token, quota_api_url)
     url_string = url_string + project_id
     response = requests.get(url_string, headers=headers)
     return response.text
 
 
-def delete_custom_kingbird_quota(token, project_id, quota_to_delete=None):
+def delete_custom_playnetmano_rm_quota(token, project_id, quota_to_delete=None):
     headers, url_string = get_urlstring_and_headers(token, quota_api_url)
     url_string = url_string + project_id
     if quota_to_delete:
@@ -148,7 +134,7 @@ def delete_custom_kingbird_quota(token, project_id, quota_to_delete=None):
     return response.text
 
 
-def get_default_kingbird_quota(token):
+def get_default_playnetmano_rm_quota(token):
     headers, url_string = get_urlstring_and_headers(token, quota_api_url)
     url_string = url_string + "defaults"
     response = requests.get(url_string, headers=headers)
@@ -169,8 +155,8 @@ def get_quota_usage_for_project(token, project_id):
     return response.text
 
 
-def create_custom_kingbird_quota_wrong_token(token,
-                                             project_id, new_quota_values):
+def create_custom_playnetmano_rm_quota_wrong_token(token,
+                                                   project_id, new_quota_values):
     headers, url_string = get_urlstring_and_headers(token, quota_api_url)
     headers['X-Auth-Token'] = 'fake_token'
     url_string = url_string + project_id
