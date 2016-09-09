@@ -2,7 +2,7 @@
 Black Hole
 ===============================
 
-Centralized RM service
+Centralized RM  service
 
 Black Hole provides features like centralized quota management, centralized view
 for distributed virtual resources, global view for tenant level IP/MAC address
