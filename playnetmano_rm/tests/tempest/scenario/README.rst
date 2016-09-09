@@ -1,4 +1,4 @@
-Tests for Kingbird in Tempest
+Tests for Playnetmano_rm in Tempest
 ====================================
 
 How to run

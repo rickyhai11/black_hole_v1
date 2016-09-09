@@ -4,7 +4,7 @@ BASE_DIR=`dirname $0`
 
 function usage {
     echo "Usage: $0 [OPTION]..."
-    echo "Run Kingbirds's test suite(s)"
+    echo "Run playnetmano_rm's test suite(s)"
     echo ""
     echo "  -V, --virtual-env        Use virtualenv.  Install automatically if not present."
     echo "                           (Default is to run tests in local environment)"
@@ -42,19 +42,19 @@ venv=.venv
 with_venv=tools/with_venv.sh
 wrapper=""
 debug=0
-flake8args="kingbird"
+flake8args="playnetmano_rm"
 
 function run_tests {
     echo 'Running tests'
     # Remove any extraneous DB migrations
-    find kingbird/db/sqlalchemy/migrate_repo/versions/ -name '*.pyc' -delete
+    find playnetmano_rm/db/sqlalchemy/migrate_repo/versions/ -name '*.pyc' -delete
 
     if [ $debug -eq 1 ]; then
       echo "Debugging..."
       if [ "$args" = "" ]; then
         # Default to running all tests if specific test is not
         # provided.
-        testrargs="discover ./kingbird/tests/unit"
+        testrargs="discover ./playnetmano_rm/tests/unit"
       fi
       ${wrapper} python -m testtools.run $args $testrargs
 

@@ -98,7 +98,7 @@ class TestQuotaManager(base.KingbirdTestCase):
         qm = quota_manager.QuotaManager()
         mock_db_api.quota_get_all_by_project.return_value = {
             'project_id': FAKE_PROJECT, 'ram': 51000}
-        actual_global_limit = qm._get_kingbird_project_limit(FAKE_PROJECT)
+        actual_global_limit = qm._get_playnetmano_rm_project_limit(FAKE_PROJECT)
         # Assert playnetmano_rm limits from conf file
         self.assertEqual(CONF.kingbird_global_limit['quota_cores'],
                          actual_global_limit['cores'])
@@ -150,7 +150,7 @@ class TestQuotaManager(base.KingbirdTestCase):
     @mock.patch.object(quota_manager.QuotaManager,
                        'update_quota_limits')
     @mock.patch.object(quota_manager.QuotaManager,
-                       '_get_kingbird_project_limit')
+                       '_get_playnetmano_rm_project_limit')
     @mock.patch.object(quota_manager, 'endpoint_cache')
     def test_quota_sync_for_project(self, mock_endpoint, mock_kb_limit,
                                     mock_update, mock_quota_usage,
@@ -184,7 +184,7 @@ class TestQuotaManager(base.KingbirdTestCase):
     @mock.patch.object(quota_manager.QuotaManager,
                        'get_tenant_quota_usage_per_region')
     def test_get_total_usage_for_tenant(self, mock_quota_usage,
-                                        mock_endpoint):
+                                        mock_endpoint, mock_db_api):
         qm = quota_manager.QuotaManager()
         qm.get_total_usage_for_tenant(FAKE_PROJECT)
         mock_quota_usage.assert_called_once_with(FAKE_PROJECT)
@@ -196,7 +196,7 @@ class TestQuotaManager(base.KingbirdTestCase):
     @mock.patch.object(quota_manager.QuotaManager,
                        'update_quota_limits')
     @mock.patch.object(quota_manager.QuotaManager,
-                       '_get_kingbird_project_limit')
+                       '_get_playnetmano_rm_project_limit')
     @mock.patch.object(quota_manager, 'endpoint_cache')
     def test_quota_sync_for_project_read_error(self, mock_endpoint,
                                                mock_kb_limit,

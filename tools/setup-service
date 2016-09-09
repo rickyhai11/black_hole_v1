@@ -9,11 +9,11 @@ PORT=8118
 HOST=$1 # Put your host IP here
 SVC_PASSWD=$2
 
-SERVICE_ID=$(openstack service show kingbird -f value -cid 2>/dev/null)
+SERVICE_ID=$(openstack service show playnetmano_rm -f value -cid 2>/dev/null)
 if [[ -z $SERVICE_ID ]]; then
   SERVICE_ID=$(openstack service create \
-    --name kingbird \
-    --description 'Kingbird Service V1.0' \
+    --name playnetmano_rm \
+    --description 'playnetmano_rm Service V1.0' \
     -f value -cid \
     multisite)
 fi
@@ -27,20 +27,20 @@ openstack endpoint create \
   --publicurl "http://$HOST:$PORT/v1.0/\$(tenant_id)s" \
   --internalurl "http://$HOST:$PORT/v1.0/\$(tenant_id)s" \
   --region RegionOne \
-  kingbird
+  playnetmano_rm
 
 openstack user create \
   --password "$SVC_PASSWD" \
   --project service \
-  kingbird
+  playnetmano_rm
 
 openstack role add \
   admin \
-  --user kingbird \
+  --user playnetmano_rm \
   --project service
 
-# make sure 'kingbird' has 'service' role in 'demo' project
+# make sure 'playnetmano_rm' has 'service' role in 'demo' project
 openstack role add \
   service \
-  --user kingbird \
+  --user playnetmano_rm \
   --project demo

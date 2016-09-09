@@ -1,18 +1,3 @@
-# Copyright (c) 2015 Ericsson AB.
-# All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License"); you may
-# not use this file except in compliance with the License. You may obtain
-# a copy of the License at
-#
-#         http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
-# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
-# License for the specific language governing permissions and limitations
-# under the License.
-
 """playnetmano_rm common internal object model"""
 
 from oslo_utils import versionutils
@@ -23,7 +8,7 @@ from playnetmano_rm import objects
 VersionedObjectDictCompat = base.VersionedObjectDictCompat
 
 
-class playnetmano_rmObject(base.VersionedObject):
+class Playnetmano_rmObject(base.VersionedObject):
     """Base class for playnetmano_rm objects.
 
     This is the base class for all objects that can be remoted or instantiated
@@ -51,7 +36,7 @@ class playnetmano_rmObject(base.VersionedObject):
         return obj
 
 
-class playnetmano_rmObjectRegistry(base.VersionedObjectRegistry):
+class Playnetmano_rmObjectRegistry(base.VersionedObjectRegistry):
     def registration_hook(self, cls, index):
         """Callback for object registration.
 

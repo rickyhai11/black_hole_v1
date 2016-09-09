@@ -23,15 +23,15 @@ from oslo_versionedobjects import fields as obj_fields
 
 class TestBaseObject(base.KingbirdTestCase):
     def test_base_class(self):
-        obj = obj_base.playnetmano_rmObject()
-        self.assertEqual(obj_base.playnetmano_rmObject.OBJ_PROJECT_NAMESPACE,
+        obj = obj_base.Playnetmano_rmObject()
+        self.assertEqual(obj_base.Playnetmano_rmObject.OBJ_PROJECT_NAMESPACE,
                          obj.OBJ_PROJECT_NAMESPACE)
-        self.assertEqual(obj_base.playnetmano_rmObject.VERSION,
+        self.assertEqual(obj_base.Playnetmano_rmObject.VERSION,
                          obj.VERSION)
 
-    @mock.patch.object(obj_base.playnetmano_rmObject, "obj_reset_changes")
+    @mock.patch.object(obj_base.Playnetmano_rmObject, "obj_reset_changes")
     def test_from_db_object(self, mock_obj_reset_ch):
-        class Testplaynetmano_rmObject(obj_base.playnetmano_rmObject,
+        class Testplaynetmano_rmObject(obj_base.Playnetmano_rmObject,
                                        obj_base.VersionedObjectDictCompat):
             fields = {
                 "key1": obj_fields.StringField(),
@@ -44,7 +44,7 @@ class TestBaseObject(base.KingbirdTestCase):
             "key1": "value1",
             "key2": "value2",
         }
-        res = obj_base.playnetmano_rmObject._from_db_object(context, obj, db_obj)
+        res = obj_base.Playnetmano_rmObject._from_db_object(context, obj, db_obj)
         self.assertIsNotNone(res)
         self.assertEqual("value1", obj["key1"])
         self.assertEqual("value2", obj["key2"])
@@ -52,9 +52,9 @@ class TestBaseObject(base.KingbirdTestCase):
         mock_obj_reset_ch.assert_called_once_with()
 
     def test_from_db_object_none(self):
-        obj = obj_base.playnetmano_rmObject()
+        obj = obj_base.Playnetmano_rmObject()
         db_obj = None
         context = mock.Mock()
 
-        res = obj_base.playnetmano_rmObject._from_db_object(context, obj, db_obj)
+        res = obj_base.Playnetmano_rmObject._from_db_object(context, obj, db_obj)
         self.assertIsNone(res)

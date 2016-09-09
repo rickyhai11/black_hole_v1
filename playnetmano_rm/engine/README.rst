@@ -17,7 +17,7 @@ playnetmano_rm Service has responsibility for:
     Database through the DAL module.
 
 service.py:
-    run KB service in multi-worker mode, and establish RPC server
+    run PLR service in multi-worker mode, and establish RPC server
 
 engine_cfg.py:
     configuration and initialization for Engine service
@@ -34,10 +34,10 @@ quota_manager.py
 
     Reference link: https://etherpad.opnfv.org/p/centralized_quota_management
 
-    On Demand Quota Sync: Creates threads for each region and syncs
+    On Demand Quota Sync (quota sync for a project): Creates threads for each region and syncs
     the limits for each quota concurrently.
 
-    Periodic Quota Sync: Creates threads for each Project and calls
+    Periodic Quota Sync(quota sync for all projects): Creates threads for each Project and calls
     quota sync for project(On Demand Quota sync) for syncing project.
 
     Caches OpenStack region specific clients so reduced traffic.

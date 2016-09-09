@@ -11,6 +11,8 @@ def get_import_path(cls):
 
 # Returns a iterator of tuples containing batch_size number of objects in each
 def get_batch_projects(batch_size, project_list, fillvalue=None):
+    # look at this link to see what happened
+    # http://stackoverflow.com/questions/28847334/how-to-unserstand-the-code-using-izip-longest-to-chunk-a-list
     args = [iter(project_list)] * batch_size
     return itertools.izip_longest(fillvalue=fillvalue, *args)
 

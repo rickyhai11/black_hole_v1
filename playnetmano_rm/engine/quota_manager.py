@@ -1,18 +1,3 @@
-# Copyright 2016 Ericsson AB
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
-# implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import collections
 from Queue import Queue
 import re
@@ -126,25 +111,25 @@ class QuotaManager(manager.Manager):
             resultant_dict += single_region[current_region]
         return resultant_dict
 
-    def _get_kingbird_project_limit(self, project_id):
+    def _get_playnetmano_rm_project_limit(self, project_id):
         # Returns playnetmano_rm project limit for a project.
-        kingbird_limits_for_project = collections.defaultdict(dict)
+        playnetmano_rm_limits_for_project = collections.defaultdict(dict)
         try:
             # checks if there are any quota limit in DB for a project
             limits_from_db = db_api.quota_get_all_by_project(self.context,
                                                              project_id)
         except exceptions.ProjectQuotaNotFound:
             limits_from_db = {}
-        for current_resource in CONF.kingbird_global_limit.iteritems():
+        for current_resource in CONF.playnetmano_rm_global_limit.iteritems():
             resource = re.sub('quota_', '', current_resource[0])
             # If resource limit in DB, then use it or else use limit
             # from conf file
             if resource in limits_from_db:
-                kingbird_limits_for_project[resource] = limits_from_db[
+                playnetmano_rm_limits_for_project[resource] = limits_from_db[
                     resource]
             else:
-                kingbird_limits_for_project[resource] = current_resource[1]
-        return kingbird_limits_for_project
+                playnetmano_rm_limits_for_project[resource] = current_resource[1]
+        return playnetmano_rm_limits_for_project
 
     def _arrange_quotas_by_service_name(self, region_new_limit):
         # Returns a dict of resources with limits arranged by service name
@@ -172,7 +157,7 @@ class QuotaManager(manager.Manager):
 
     def quota_sync_for_project(self, project_id):
         # Sync quota limits for the project according to below formula
-        # Global remaining limit = Kingbird global limit - Summation of usages
+        # Global remaining limit = Playnetmano_rm global limit - Summation of usages
         #                          in all the regions
         # New quota limit = Global remaining limit + usage in that region
         LOG.info(_LI("Quota sync Called for Project: %s"),
@@ -188,9 +173,9 @@ class QuotaManager(manager.Manager):
                       "Aborting, continue with next project."), project_id)
             return
         total_project_usages = dict(self.get_summation(regions_usage_dict))
-        kingbird_global_limit = self._get_kingbird_project_limit(project_id)
+        playnetmano_rm_global_limit = self._get_playnetmano_rm_project_limit(project_id)
         global_remaining_limit = collections.Counter(
-            kingbird_global_limit) - collections.Counter(total_project_usages)
+            playnetmano_rm_global_limit) - collections.Counter(total_project_usages)
 
         for current_region in region_lists:
             region_new_limit = dict(
@@ -239,9 +224,21 @@ class QuotaManager(manager.Manager):
         # Returns total quota usage for a tenant
         LOG.info(_LI("Get total usage called for project: %s"),
                  project_id)
-        total_usage = dict(self.get_summation(
-            self.get_tenant_quota_usage_per_region(project_id)))
-        return total_usage
+        try:
+            total_usage = dict(self.get_summation(
+                self.get_tenant_quota_usage_per_region(project_id)))
+            kingbird_global_limit = self._get_kingbird_project_limit(
+                project_id)
+            # Get unused quotas
+            unused_quota = set(
+                kingbird_global_limit).difference(set(total_usage.keys()))
+            # Create a dict with value as '0' for unused quotas
+            unused_quota = dict((quota_name, 0) for quota_name in unused_quota)
+            total_usage.update(unused_quota)
+            return {'limits': kingbird_global_limit,
+                    'usage': total_usage}
+        except exceptions.NotFound:
+            raise
 
 
 def list_opts():
