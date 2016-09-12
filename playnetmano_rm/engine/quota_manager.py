@@ -227,15 +227,15 @@ class QuotaManager(manager.Manager):
         try:
             total_usage = dict(self.get_summation(
                 self.get_tenant_quota_usage_per_region(project_id)))
-            kingbird_global_limit = self._get_kingbird_project_limit(
+            playnetmano_rm_global_limit = self._get_playnetmano_rm_project_limit(
                 project_id)
             # Get unused quotas
             unused_quota = set(
-                kingbird_global_limit).difference(set(total_usage.keys()))
+                playnetmano_rm_global_limit).difference(set(total_usage.keys()))
             # Create a dict with value as '0' for unused quotas
             unused_quota = dict((quota_name, 0) for quota_name in unused_quota)
             total_usage.update(unused_quota)
-            return {'limits': kingbird_global_limit,
+            return {'limits': playnetmano_rm_global_limit,
                     'usage': total_usage}
         except exceptions.NotFound:
             raise

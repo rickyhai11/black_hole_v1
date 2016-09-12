@@ -51,7 +51,7 @@ Only restful APIs are provided for playnetmano_rm in Colorado release, so curl o
 other http client can be used to call playnetmano_rm API.
 
 Before use the following command, get token, project id, and playnetmano_rm service
-endpoint first. Use $kb_token to repesent the token, and $admin_tenant_id as
+endpoint first. Use $pl_rm_token to repesent the token, and $admin_tenant_id as
 administrator project_id, and $tenant_id as the target project_id for quota
 management and $playnetmano_ip_addr for the playnetmano_rm service endpoint ip address.
 
@@ -81,7 +81,7 @@ Quota Management API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -H  "ROLE: dmin" \
    -X PUT \
    -d '{"quota_set":{"cores": 10,"ram": 51200, "metadata_items": 100,"key_pairs": 100, "network":20,"security_group": 20,"security_group_rule": 20}}' \
@@ -91,7 +91,7 @@ Quota Management API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -H  "X_ROLE: admin" \
    http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
 
@@ -99,14 +99,14 @@ Quota Management API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    http://$playnetmano_ip_addr:8118/v1.0/$tenant_id/os-quota-sets/$tenant_id
 
 4. Get defaults limits
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -H  "X_ROLE: admin" \
    http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/defaults
 
@@ -114,7 +114,7 @@ Quota Management API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -H  "X_ROLE: admin" \
    -X GET \
    http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id/detail
@@ -123,7 +123,7 @@ Quota Management API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -X GET \
    http://$playnetmano_ip_addr:8118/v1.0/$tenant_id/os-quota-sets/$tenant_id/detail
 
@@ -131,7 +131,7 @@ Quota Management API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -H  "X_ROLE: admin" \
    -X PUT \
    http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id/sync
@@ -141,7 +141,7 @@ Quota Management API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -H  "X_ROLE: admin" \
    -X DELETE \
    -d '{"quota_set": [ "cores", "ram"]}' \
@@ -151,7 +151,7 @@ Quota Management API
 
   curl \
   -H "Content-Type: application/json" \
-  -H "X-Auth-Token: $kb_token" \
+  -H "X-Auth-Token: $pl_rm_token" \
   -H  "X_ROLE: admin" \
   -X DELETE \
   http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-sets/$tenant_id
@@ -164,7 +164,7 @@ Quota Class API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -H  "ROLE: dmin" \
    -X PUT \
    -d '{"quota_class_set":{"cores": 100, "network":50,"security_group": 50,"security_group_rule": 50}}' \
@@ -174,7 +174,7 @@ Quota Class API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -H  "X_ROLE: admin" \
    http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-class-sets/default
 
@@ -182,7 +182,7 @@ Quota Class API
 
    curl \
    -H "Content-Type: application/json" \
-   -H "X-Auth-Token: $kb_token" \
+   -H "X-Auth-Token: $pl_rm_token" \
    -H  "ROLE: dmin" \
    -X DELETE \
    http://$playnetmano_ip_addr:8118/v1.0/$admin_tenant_id/os-quota-class-sets/default
