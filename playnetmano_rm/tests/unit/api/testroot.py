@@ -36,7 +36,7 @@ def fake_delete_response(self, context):
     return resp
 
 
-class KBApiTest(base.KingbirdTestCase):
+class KBApiTest(base.Playnetmano_rmTestCase):
 
     def setUp(self):
         super(KBApiTest, self).setUp()

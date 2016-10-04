@@ -22,6 +22,6 @@ Tests for `playnetmano_rm` module.
 from playnetmano_rm.tests import base
 
 
-class TestKingbird(base.KingbirdTestCase):
+class TestPlaynetmano_rm(base.Playnetmano_rmTestCase):
     def test_something(self):
         pass

@@ -14,7 +14,7 @@ playnetmano_rm Engine in asynchronous way.
 Multiple playnetmano_rm API could run in parallel, and also can work in multi-worker
 mode.
 
-Multiple playnetmano_rm API will be designed and run in stateless mode, c
+Multiple playnetmano_rm API will be designed and run in stateless mode,
 data will be accessed (read and write) from the playnetmano_rm Database through the
 DAL module.
 

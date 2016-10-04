@@ -57,6 +57,10 @@ def quota_destroy_all(context, project_id):
     return IMPL.quota_destroy(context, project_id)
 
 
+# default quota usage db methods
+
+###################
+
 def quota_class_get(context, class_name, resource):
     """Retrieve quota from the given quota class"""
     return IMPL.quota_class_get(context, class_name, resource)

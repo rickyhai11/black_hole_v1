@@ -21,7 +21,7 @@ from oslo_config import cfg
 CONF = cfg.CONF
 
 
-class TestEngineService(base.KingbirdTestCase):
+class TestEngineService(base.Playnetmano_rmTestCase):
     def setUp(self):
         super(TestEngineService, self).setUp()
         self.tenant_id = 'fake_admin'

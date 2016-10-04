@@ -47,7 +47,7 @@ Following quota items are supported to be managed in playnetmano_rm:
 - **backup_gigabytes**: Total amount of storage, in gigabytes, allowed for volume
   backups per project.
 
-Only restful APIs are provided for playnetmano_rm in Colorado release, so curl or
+Only restful APIs are provided for playnetmano_rm in this release, so curl or
 other http client can be used to call playnetmano_rm API.
 
 Before use the following command, get token, project id, and playnetmano_rm service

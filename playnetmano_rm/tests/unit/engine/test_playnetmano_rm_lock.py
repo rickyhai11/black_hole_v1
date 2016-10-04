@@ -24,15 +24,15 @@ config.register_options()
 FAKE_ENGINE_ID = str(uuid.uuid4())
 FAKE_TASK_TYPE = 'fake_sync'
 
-cfg.CONF.import_group("locks", "playnetmano_rm.engine.kingbird_lock")
-cfg.CONF.import_group("locks", "playnetmano_rm.engine.kingbird_lock")
+cfg.CONF.import_group("locks", "playnetmano_rm.engine.playnetmano_rm_lock")
+cfg.CONF.import_group("locks", "playnetmano_rm.engine.playnetmano_rm_lock")
 cfg.CONF.set_override('lock_retry_times', 2, group='locks')
 cfg.CONF.set_override('lock_retry_interval', 1, group='locks')
 
 
-class TestKingbirdLock(base.KingbirdTestCase):
+class TestPlaynetmano_rmLock(base.Playnetmano_rmTestCase):
     def setUp(self):
-        super(TestKingbirdLock, self).setUp()
+        super(TestPlaynetmano_rmLock, self).setUp()
         self.context = utils.dummy_context()
 
     @mock.patch.object(playnetmano_rm_lock, 'db_api')

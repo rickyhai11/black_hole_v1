@@ -30,7 +30,7 @@ class FakeService(object):
         self.name = name
 
 
-class TestOpenStackDriver(base.KingbirdTestCase):
+class TestOpenStackDriver(base.Playnetmano_rmTestCase):
     def setUp(self):
         super(TestOpenStackDriver, self).setUp()
 

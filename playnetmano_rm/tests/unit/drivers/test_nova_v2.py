@@ -53,7 +53,7 @@ FAKE_LIMITS = {'absolute':
                }
 
 
-class TestNovaClient(base.KingbirdTestCase):
+class TestNovaClient(base.Playnetmano_rmTestCase):
     def setUp(self):
         super(TestNovaClient, self).setUp()
         self.ctx = utils.dummy_context()

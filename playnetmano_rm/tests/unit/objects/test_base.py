@@ -21,7 +21,7 @@ from playnetmano_rm.tests import base
 from oslo_versionedobjects import fields as obj_fields
 
 
-class TestBaseObject(base.KingbirdTestCase):
+class TestBaseObject(base.Playnetmano_rmTestCase):
     def test_base_class(self):
         obj = obj_base.Playnetmano_rmObject()
         self.assertEqual(obj_base.Playnetmano_rmObject.OBJ_PROJECT_NAMESPACE,

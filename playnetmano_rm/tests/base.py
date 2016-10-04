@@ -16,5 +16,5 @@
 from oslotest import base
 
 
-class KingbirdTestCase(base.BaseTestCase):
+class Playnetmano_rmTestCase(base.BaseTestCase):
     """Test case base class for all unit tests."""

@@ -37,7 +37,7 @@ TOTAL_USAGE.update(CINDER_USAGE)
 TASK_TYPE = 'quota_sync'
 
 
-class TestQuotaManager(base.KingbirdTestCase):
+class TestQuotaManager(base.Playnetmano_rmTestCase):
     def setUp(self):
         super(TestQuotaManager, self).setUp()
         self.ctxt = utils.dummy_context()
@@ -92,8 +92,8 @@ class TestQuotaManager(base.KingbirdTestCase):
 
     @mock.patch.object(quota_manager, 'db_api')
     @mock.patch.object(quota_manager, 'endpoint_cache')
-    def test_get_kingbird_project_limit(self, mock_endpoint,
-                                        mock_db_api):
+    def test_get_playnetmano_rm_project_limit(self, mock_endpoint,
+                                              mock_db_api):
         config.register_options()
         qm = quota_manager.QuotaManager()
         mock_db_api.quota_get_all_by_project.return_value = {

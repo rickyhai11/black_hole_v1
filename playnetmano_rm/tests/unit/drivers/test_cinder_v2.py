@@ -45,7 +45,7 @@ backups = [VolumeBackup(volumes[0].id),
 DISABLED_QUOTAS = ["floating_ips", "fixed_ips", "security_groups"]
 
 
-class TestCinderClient(base.KingbirdTestCase):
+class TestCinderClient(base.Playnetmano_rmTestCase):
     def setUp(self):
         super(TestCinderClient, self).setUp()
         self.ctx = utils.dummy_context()

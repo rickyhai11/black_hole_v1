@@ -32,7 +32,7 @@ FAKE_CINDER_URL_2 = 'fake_url_cinder_2'
 FAKE_NEUTRON_URL_1 = 'fake_url_neutron_1'
 
 
-class EndpointCacheTest(base.KingbirdTestCase):
+class EndpointCacheTest(base.Playnetmano_rmTestCase):
     def setUp(self):
         super(EndpointCacheTest, self).setUp()
 

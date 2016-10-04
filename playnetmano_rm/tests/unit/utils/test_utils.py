@@ -17,7 +17,7 @@ from playnetmano_rm.common import utils
 from playnetmano_rm.tests import base
 
 
-class TestUtils(base.KingbirdTestCase):
+class TestUtils(base.Playnetmano_rmTestCase):
     def setUp(self):
         super(TestUtils, self).setUp()
 

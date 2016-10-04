@@ -31,7 +31,7 @@ FAKE_SEC_GRP_RULES = {'security_group_rules': ['sec_grp_rul1', 'sec_grp_rul2']}
 FAKE_SEC_GRP = {'security_groups': ['sec_grp1', 'sec_grp2']}
 
 
-class TestNeutronClient(base.KingbirdTestCase):
+class TestNeutronClient(base.Playnetmano_rmTestCase):
     def setUp(self):
         super(TestNeutronClient, self).setUp()
         self.ctx = utils.dummy_context()

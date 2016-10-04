@@ -133,7 +133,7 @@ class EngineService(service.Service):
 
     @request_context
     def quota_sync_for_project(self, context, project_id):
-        # On Demand Quota Sync for a project, will be triggered by KB-API
+        # On Demand Quota Sync for a project, will be triggered by Playnetmano_rm-API
         LOG.info(_LI("On Demand Quota Sync Called for: %s"),
                  project_id)
         self.qm.quota_sync_for_project(project_id)

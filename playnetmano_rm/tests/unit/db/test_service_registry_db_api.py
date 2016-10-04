@@ -29,7 +29,7 @@ config.register_options()
 get_engine = api.get_engine
 
 
-class ServiceRegistryTest(base.KingbirdTestCase):
+class ServiceRegistryTest(base.Playnetmano_rmTestCase):
     def setup_dummy_db(self):
         options.cfg.set_defaults(options.database_opts,
                                  sqlite_synchronous=False)

@@ -35,7 +35,7 @@ class FakeEndpoint(object):
         self.region = region
 
 
-class TestKeystoneClient(base.KingbirdTestCase):
+class TestKeystoneClient(base.Playnetmano_rmTestCase):
     def setUp(self):
         super(TestKeystoneClient, self).setUp()
         self.ctx = utils.dummy_context()

@@ -24,7 +24,7 @@ from playnetmano_rm.tests import utils
 config.register_options()
 
 
-class EngineRpcAPITestCase(base.KingbirdTestCase):
+class EngineRpcAPITestCase(base.Playnetmano_rmTestCase):
 
     def setUp(self):
         messaging.setup("fake://", optional=True)

@@ -32,7 +32,7 @@ FAKE_TASK_TYPE = 'fake_sync'
 FAKE_TASK_TYPE_2 = 'fake_sync2'
 
 
-class DBAPISyncLockTest(base.KingbirdTestCase):
+class DBAPISyncLockTest(base.Playnetmano_rmTestCase):
     def setup_dummy_db(self):
         options.cfg.set_defaults(options.database_opts,
                                  sqlite_synchronous=False)
