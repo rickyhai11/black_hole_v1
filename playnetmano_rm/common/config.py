@@ -143,6 +143,7 @@ default_quota_group = cfg.OptGroup(name='playnetmano_rm_global_limit',
 
 cache_opt_group = cfg.OptGroup(name='cache',
                                title='OpenStack Credentials')
+CONF = cfg.CONF
 
 
 def list_opts():
@@ -156,5 +157,12 @@ def list_opts():
 
 
 def register_options():
+    # CONF = cfg.CONF
     for group, opts in list_opts():
-        cfg.CONF.register_opts(opts, group=group)
+        CONF.register_opts(opts, group=group)
+
+def load_configuration_rm():
+    register_options()
+    CONF(default_config_files=['playnetmano_rm.conf'])
+    print(CONF.cache.auth_uri)
+    return CONF

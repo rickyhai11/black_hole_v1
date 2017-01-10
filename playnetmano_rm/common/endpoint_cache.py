@@ -18,12 +18,12 @@ class EndpointCache(object):
     @staticmethod
     def _get_admin_token(self):
         auth = auth_identity.Password(
-            auth_url=cfg.CONF.cache.auth_uri,
-            username=cfg.CONF.cache.admin_username,
-            password=cfg.CONF.cache.admin_password,
-            project_name=cfg.CONF.cache.admin_tenant,
-            user_domain_name=cfg.CONF.cache.admin_user_domain_name,
-            project_domain_name=cfg.CONF.cache.admin_project_domain_name)
+            auth_url=CONF.cache.auth_uri,
+            username=CONF.cache.admin_username,
+            password=CONF.cache.admin_password,
+            project_name=CONF.cache.admin_tenant,
+            user_domain_name=CONF.cache.admin_user_domain_name,
+            project_domain_name=CONF.cache.admin_project_domain_name)
         sess = session.Session(auth=auth)
         self.admin_session = sess
         return sess.get_token()
