@@ -4,6 +4,8 @@ import re
 import threading
 import time
 
+from playnetmano_rm.engine.timer_decorator import *
+
 from oslo_config import cfg
 from oslo_log import log as logging
 
@@ -19,6 +21,7 @@ from playnetmano_rm.common import utils
 from playnetmano_rm.db import api as db_api
 from playnetmano_rm.drivers.openstack import sdk
 from playnetmano_rm.engine import playnetmano_rm_lock
+from playnetmano_rm.tests.tempest.scenario.quota_management.sync_client import quota_sync_for_project
 
 CONF = cfg.CONF
 LOG = logging.getLogger(__name__)
@@ -65,7 +68,7 @@ class QuotaManager(manager.Manager):
         # Iterate through project list and call sync project for each project
         # using threads
         project_list = sdk.OpenStackDriver().get_enabled_projects()
-        # Divide list of projects into batches and perfrom quota sync
+        # Divide list of projects into batches and perform quota sync
         # for one batch at a time.
         for current_batch_projects in utils.get_batch_projects(
                 cfg.CONF.batch.batch_size, project_list):
@@ -155,6 +158,7 @@ class QuotaManager(manager.Manager):
         os_client = sdk.OpenStackDriver(current_region)
         os_client.write_quota_limits(project_id, region_new_limit)
 
+    @timecall
     def quota_sync_for_project(self, project_id):
         # Sync quota limits for the project according to below formula
         # Global remaining limit = Playnetmano_rm global limit - Summation of usages
@@ -162,6 +166,7 @@ class QuotaManager(manager.Manager):
         # New quota limit = Global remaining limit + usage in that region
         LOG.info(_LI("Quota sync Called for Project: %s"),
                  project_id)
+
         regions_thread_list = []
         # Retrieve regions for the project
         region_lists = sdk.OpenStackDriver().get_all_regions_for_project(
@@ -243,3 +248,7 @@ class QuotaManager(manager.Manager):
 
 def list_opts():
     yield batch_opt_group.name, batch_opts
+
+
+
+
